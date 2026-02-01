@@ -165,7 +165,7 @@ void Tensor::debug() const {
 
 bool Tensor::isContiguous() const {
     ptrdiff_t expected_stride = 1;
-    for (int i = _meta.shape.size() - 1; i >= 0; --i) {
+    for (ptrdiff_t i = _meta.shape.size() - 1; i >= 0; --i) {
         if (_meta.strides[i] != expected_stride) return false;
         expected_stride *= static_cast<ptrdiff_t>(_meta.shape[i]);
     }
@@ -196,7 +196,7 @@ tensor_t Tensor::view(const std::vector<size_t> &shape) const {
     std::vector<ptrdiff_t> new_strides(shape.size());
     if (isContiguous()) {
         ptrdiff_t stride = 1;
-        for (int i = shape.size() - 1; i >= 0; --i) {
+        for (ptrdiff_t i = shape.size() - 1; i >= 0; --i) {
             new_strides[i] = stride;
             stride *= static_cast<ptrdiff_t>(shape[i]);
         }
